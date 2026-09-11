@@ -12,6 +12,7 @@ import {
   Video,
   Settings,
   Bot,
+  BookOpen,
 } from "lucide-react";
 import { useInquiries } from "@/lib/inquiry-store";
 
@@ -24,6 +25,7 @@ const nav = [
   { href: "/web-answer", label: "Web 一次回答", icon: Globe, phase: "第3" },
   { href: "/manuals", label: "動画マニュアル生成", icon: Video, phase: "第0" },
   { href: "/settings", label: "モデル接続・利用上限", icon: Settings, phase: "" },
+  { href: "/guide", label: "操作ガイド", icon: BookOpen, phase: "" },
 ];
 
 export function Sidebar() {

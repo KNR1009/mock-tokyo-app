@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, Clock, GraduationCap, Inbox, ThumbsUp, Wallet } from "lucide-react";
+import { ArrowRight, BookOpen, Clock, GraduationCap, Inbox, ThumbsUp, Wallet } from "lucide-react";
 import { Card, Chip, Confidence, FitBadge, PageHeader, StatCard, StatusBadge } from "@/components/ui";
 import { useInquiries } from "@/lib/inquiry-store";
 import { dashboardStats as s, phases, qualityIssues, knowledgeCandidates } from "@/lib/mock-data";
@@ -22,6 +22,14 @@ export default function DashboardPage() {
         eyebrow="2026-09-12（土）"
         title="ダッシュボード"
         description="AIが回答案を出し、担当者が「これでよい」と確認する運用。担当者の判断は学習キューへ蓄積され、翌年度の積算資料・仕様書づくりに反映されます。"
+        actions={
+          <Link
+            href="/guide"
+            className="inline-flex items-center gap-1.5 rounded-lg border border-navy-200 bg-white px-3 py-2 text-sm font-medium text-navy-700 hover:bg-navy-50"
+          >
+            <BookOpen size={14} /> はじめての方は操作ガイドへ
+          </Link>
+        }
       />
 
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">

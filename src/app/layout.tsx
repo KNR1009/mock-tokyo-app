@@ -21,7 +21,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="ja" className={notoSansJP.variable}>
       <body className="antialiased">
         <InquiryProvider>
-          <div className="flex min-h-screen">
+          <div className="flex h-screen">
             <Sidebar />
             <main className="flex-1 overflow-y-auto">
               <div className="mx-auto max-w-7xl px-8 py-8">{children}</div>
