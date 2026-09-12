@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { Search } from "lucide-react";
-import { Card, Confidence, FitBadge, PageHeader, StatusBadge } from "@/components/ui";
+import { Database, Plus, Search } from "lucide-react";
+import { Button, Card, Confidence, FitBadge, PageHeader, StatusBadge } from "@/components/ui";
 import { useInquiries } from "@/lib/inquiry-store";
 import { dateTime, yen } from "@/lib/format";
 import type { InquiryStatus } from "@/lib/types";
@@ -34,7 +34,27 @@ export default function InquiriesPage() {
         title="積算判定アシスト"
         phase="第1フェーズ"
         description="届いた図面・条件に対して、AIが積算資料・仕様書・過去の判断履歴を照らし合わせて回答案を作成します。担当者は確認・修正・相談のいずれかで処理してください。"
+        actions={
+          <Link href="/inquiries/new">
+            <Button>
+              <Plus size={14} /> 新規案件を登録（資料をアップロード）
+            </Button>
+          </Link>
+        }
       />
+
+      <div className="mb-4 flex flex-wrap items-center gap-x-4 gap-y-1 rounded-lg border border-navy-100 bg-navy-50/60 px-4 py-2.5 text-xs text-navy-800">
+        <span className="flex items-center gap-1.5 font-bold">
+          <Database size={14} /> AI が参照中のデータ
+        </span>
+        <span>積算資料 2026年版（48p）</span>
+        <span>参考資料（仕様書）2026年版（32p）</span>
+        <span>判断履歴 412件（2023-04 以降）</span>
+        <span>施工実績 186件</span>
+        <Link href="/sources" className="ml-auto font-medium underline">
+          参照データ管理へ
+        </Link>
+      </div>
 
       <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
         <div className="flex gap-1 rounded-lg bg-slate-200/60 p-1">

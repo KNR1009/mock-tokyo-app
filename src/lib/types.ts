@@ -96,3 +96,56 @@ export interface ManualJob {
   status: "生成済み" | "生成中" | "未着手";
   steps?: { no: number; title: string; body: string; timestamp: string }[];
 }
+
+// ---- 参照データ（AI が回答案を作るときに照らし合わせるナレッジ） ----
+export type SourceCategory =
+  | "積算資料"
+  | "参考資料（仕様書）"
+  | "判断履歴"
+  | "施工実績"
+  | "機種カタログ"
+  | "土質・地盤データ";
+
+export type SourceStatus = "取込済み" | "取込中" | "要確認" | "除外";
+
+export interface KnowledgeSource {
+  id: string;
+  category: SourceCategory;
+  name: string;
+  fileType: "PDF" | "Excel" | "CSV" | "CAD" | "画像";
+  size: string;
+  version?: string;
+  validFrom?: string; // YYYY-MM-DD
+  validTo?: string; // YYYY-MM-DD
+  volume: string; // "48ページ" / "412件"
+  status: SourceStatus;
+  updatedAt: string; // YYYY-MM-DD
+  usedFor: string;
+  note?: string;
+}
+
+// ---- 新規案件の入力資料 ----
+export type UploadKind = "設計図面" | "柱状図（地質調査）" | "条件表（Excel）" | "電話メモ";
+
+export interface UploadedFile {
+  id: string;
+  kind: UploadKind;
+  name: string;
+  size: string;
+  readStatus: "読み取り中" | "読み取り完了" | "要確認";
+  note?: string;
+}
+
+export interface NewInquiryInput {
+  client: string;
+  clientType: Inquiry["clientType"];
+  workType: string;
+  pipeDiameter: number;
+  length: number;
+  soil: string;
+  nValue: string;
+  groundwater: string;
+  shaft: string;
+  source: SourceType;
+  memo?: string;
+}

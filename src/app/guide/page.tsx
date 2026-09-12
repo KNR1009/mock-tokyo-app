@@ -15,6 +15,7 @@ import {
   Settings,
   Video,
   BookOpenCheck,
+  Database,
 } from "lucide-react";
 import { Card, Chip, FitBadge, PageHeader, StatusBadge } from "@/components/ui";
 
@@ -69,6 +70,7 @@ const menuGuide = [
   { icon: Inbox, name: "積算判定アシスト", href: "/inquiries", desc: "届いた問い合わせに対する AI の回答案を確認する、いちばんよく使う画面。オレンジの数字は「確認待ちの件数」です。" },
   { icon: ClipboardCheck, name: "資料 品質チェック", href: "/quality", desc: "積算資料・仕様書の数値の抜けや矛盾を AI が見つけて教えてくれます。" },
   { icon: BookOpenCheck, name: "標準化・仕様への昇格", href: "/knowledge", desc: "担当者が何度も同じ判断をしている「経験ルール」を、来年度の資料に入れるか決める画面。" },
+  { icon: Database, name: "参照データ管理", href: "/sources", desc: "AI が答えの根拠にする資料（積算資料・仕様書・過去の判断履歴）を登録する画面。年度が変わったときに更新します。" },
   { icon: ScanSearch, name: "図面直読", href: "/drawings", desc: "図面をアップロードすると条件を読み取ります（第2フェーズのプレビュー）。" },
   { icon: Globe, name: "Web 一次回答", href: "/web-answer", desc: "協会サイトで AI が一次回答する画面のイメージ（第3フェーズの構想）。" },
   { icon: Video, name: "動画マニュアル生成", href: "/manuals", desc: "作業動画から手順書を自動で作ります。現場の引継ぎ・新人教育用。" },
@@ -83,6 +85,7 @@ const glossary = [
   { term: "仕様書との差分", desc: "仕様書には「できる」と書いてあるが、経験上は別の判断になるケース。黄色い枠で表示されます。" },
   { term: "学習キュー", desc: "担当者が AI の回答案を修正したとき、その「判断ルール」を貯めておく場所。貯まったルールは次の回答案に反映され、AI が育っていきます。" },
   { term: "昇格候補", desc: "学習キューの中で何度も繰り返されている判断。「これは標準仕様に入れてよいのでは」と AI が提案してきます。" },
+  { term: "参照データ", desc: "AI が回答案を作るときに照らし合わせる資料のこと。積算資料・仕様書・過去の判断履歴・施工実績など。「参照データ管理」画面で登録し、古い仕様のものは除外します。" },
   { term: "主系／副系／緊急予備", desc: "AI の接続先の役割。ふだんは主系（Claude）を使い、障害時は副系（GPT）、外部がすべて止まったときはローカルの緊急予備に切り替わります。" },
 ];
 
@@ -241,6 +244,14 @@ export default function GuidePage() {
 
           {/* 4 */}
           <Section id="inquiries" title="4. 積算判定アシストの使い方">
+            <Card title="新しい案件を登録する（資料が届いたとき）">
+              <ol className="space-y-3">
+                <Step no={1} title="一覧画面の右上「新規案件を登録」を押す">図面や柱状図が届いたら、まずここから登録します。</Step>
+                <Step no={2} title="資料をドロップする">設計図面（必須）・柱状図（推奨）・条件表（任意）。AI が自動で内容を読み取ります。資料がなく電話だけの場合は「電話メモ」に聞き取った内容を書きます。</Step>
+                <Step no={3} title="読み取った条件を確認する">管径・延長・土質などが自動で入ります。オレンジの項目は AI の自信が低いので、元の資料と見比べて直してください。</Step>
+                <Step no={4} title="「AI 回答案を生成」を押す">AI が積算資料・仕様書・過去の判断履歴と照らし合わせて回答案を作り、一覧に「確認待ち」として追加されます。あとは通常どおり確認します。</Step>
+              </ol>
+            </Card>
             <Card title="一覧画面（/inquiries）">
               <ul className="list-disc space-y-1.5 pl-5 text-sm text-slate-700">
                 <li>上のボタン「すべて／確認待ち／承認済み／修正して回答／相談中」で絞り込めます。ふだんは「確認待ち」にしておくと便利です。</li>

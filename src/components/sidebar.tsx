@@ -13,6 +13,7 @@ import {
   Settings,
   Bot,
   BookOpen,
+  Database,
 } from "lucide-react";
 import { useInquiries } from "@/lib/inquiry-store";
 
@@ -21,6 +22,7 @@ const nav = [
   { href: "/inquiries", label: "積算判定アシスト", icon: Inbox, phase: "第1", badge: true },
   { href: "/quality", label: "資料 品質チェック", icon: ClipboardCheck, phase: "第1" },
   { href: "/knowledge", label: "標準化・仕様への昇格", icon: BookOpenCheck, phase: "第1-2" },
+  { href: "/sources", label: "参照データ管理", icon: Database, phase: "第1" },
   { href: "/drawings", label: "図面直読", icon: ScanSearch, phase: "第2" },
   { href: "/web-answer", label: "Web 一次回答", icon: Globe, phase: "第3" },
   { href: "/manuals", label: "動画マニュアル生成", icon: Video, phase: "第0" },

@@ -2,7 +2,8 @@
 
 import { createContext, useCallback, useContext, useMemo, useState } from "react";
 import { inquiries as seed } from "./mock-data";
-import type { Inquiry } from "./types";
+import type { Inquiry, NewInquiryInput } from "./types";
+import { buildInquiry } from "./mock-ai";
 
 interface ReviewInput {
   note: string;
@@ -15,6 +16,7 @@ interface InquiryStore {
   revise: (id: string, input: ReviewInput) => void;
   escalate: (id: string, input: ReviewInput) => void;
   reopen: (id: string) => void;
+  addInquiry: (input: NewInquiryInput) => Inquiry;
 }
 
 const Ctx = createContext<InquiryStore | null>(null);
@@ -41,6 +43,11 @@ export function InquiryProvider({ children }: { children: React.ReactNode }) {
         update(id, { status: "escalated", reviewer: REVIEWER, reviewerNote: note }),
       reopen: (id) =>
         update(id, { status: "pending_review", reviewer: undefined, reviewerNote: undefined, learnedDelta: undefined }),
+      addInquiry: (input) => {
+        const created = buildInquiry(input, inquiries);
+        setInquiries((prev) => [created, ...prev]);
+        return created;
+      },
     }),
     [inquiries, update],
   );
